@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Account from "./Components/Account/Account";
+import AddProduct from "./Components/Add Product/AddProduct";
+import Header from "./Components/CommonComponents/Header/Header";
+import Histogram from "./Components/CommonComponents/Histogram/Histogram";
+import Sidenav from "./Components/CommonComponents/Sidenav/Sidenav";
+import Dashboard from "./Components/Dashboard/Dashboard";
+import Login from "./Components/Login/Login";
+import Productslist from "./Components/Products List/Productslist";
+import React, { useEffect, useState } from "react";
 
 function App() {
+
+  const [token, setToken] = useState();
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, []);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      {token == null && <Login state={setToken} />}
+      {token != null && (
+        <div>
+          <div className="app-container">
+            <div className="sidenav-container">
+              <Sidenav />
+            </div>
+            <div className="main-container">
+              <div className="header-container">
+                <Header />
+              </div>
+              <div className="content-container">
+                <Routes>
+                  <Route path="/dashboard" element={<Dashboard />}></Route>
+                  <Route path="/account" element={<Account />}></Route>
+                  <Route path="/products" element={<Productslist />}></Route>
+                  <Route path="/add" element={<AddProduct />}></Route>
+                </Routes>
+              </div>
+            </div>
+          </div>
+        </div>)}
+    </BrowserRouter>
   );
 }
+
 
 export default App;
