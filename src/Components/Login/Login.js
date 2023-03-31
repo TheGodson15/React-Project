@@ -23,13 +23,13 @@ export default function Login(props) {
   const login = async() => {
 
     var response =await axios.post("http://localhost:8080/login", loginData);
-    console.log(response.data);
+
     var decodedData = decodeToken(response.data);
     localStorage.setItem("token", response.data);
     console.log(decodedData);
-    console.log(props.state);
+
     props.state(response.data);
-    navigate("/dashboard");
+    navigate("/");
     
   };
   return (

@@ -1,12 +1,13 @@
 import { autocompleteClasses, Box, Button, TextField } from "@mui/material";
-import React from "react";
 import "./account.css";
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Edit from "./Edit Proflie/Edit";
 import Change from "./Change Password/Change";
+import { isExpired, decodeToken } from "react-jwt";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -42,13 +43,20 @@ function a11yProps(index) {
 
 export default function Account() {
   const [value, setValue] = React.useState(0);
+  var [decodedData, setFullData] = useState();
+  useEffect(() => {
+    var token = localStorage.getItem("token");
+    setFullData(decodeToken(token));
+    console.log(decodedData);
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
-    <div>
 
+    <div>
+    {decodedData!=null && (
       <Box
         sx={{ width: "95%", margin: "0 auto",marginTop: "20px" , flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: "100vh" }}
       >
@@ -65,13 +73,14 @@ export default function Account() {
 
         </Tabs>
         <TabPanel value={value} index={0} style={{width:"80%"}} >
-          <Edit/>
+          <Edit state={decodedData} />
         </TabPanel>
         <TabPanel value={value} index={1} style={{width:"80%"}}>
           <Change/>
         </TabPanel>
 
       </Box>
+      )};
     </div>
   );
 }

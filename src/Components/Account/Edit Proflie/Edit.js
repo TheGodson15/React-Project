@@ -1,8 +1,15 @@
 import { InputLabel } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
+import "../../../Utility/Interceptors/ReqInterceptors"
 import "./edit.css"
-export default function Edit() {
+import axios from 'axios'
+export default function Edit(props) {
+const removeDp = () =>{
+  axios.post("http://localhost:8080/removedp").then((res) => {
+    console.log(res);
+  });
+}
   return (
     <div>
       <Box
@@ -17,10 +24,13 @@ export default function Edit() {
         }}
       >
         <div style={{ display: "flex" }}>
-          <div className="display-picture"></div>
+          <div className="display-picture"><img
+            src={props.state.avatar}
+            style={{ height: "100px", width: "100px" }}
+          ></img></div>
           <div style={{ marginTop: "25px" }}>
             <button className="action-img">Change Avatar</button>
-            <button className="action-img uncolored">Remove</button>
+            <button className="action-img uncolored" onClick={removeDp}>Remove</button>
           </div>
         </div>
         <div className="form-container">
@@ -42,7 +52,7 @@ export default function Edit() {
             <InputLabel className="input-label">City</InputLabel>
             <input type="text" className="edit-fields"></input>
           </div>
-          
+
         </div>
         <button className="action-img save">Save Changes</button>
       </Box>
