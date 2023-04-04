@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ChartCard from "../CommonComponents/ChartCard/ChartCard";
 import Header from "../CommonComponents/Header/Header";
 import Histogram from "../CommonComponents/Histogram/Histogram";
@@ -9,12 +9,8 @@ import Sidenav from "../CommonComponents/Sidenav/Sidenav";
 import Welcome from "../CommonComponents/Welcome/Welcome";
 import "./dashboard.css";
 
-
 function Dashboard() {
   const arr = [1, 2, 3];
-
-
-
 
   return (
     <div className="dashboard-container">

@@ -9,28 +9,24 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
 export default function Login(props) {
-
-    const [loginData, setLoginData]= useState({});
-  const handleChange=(e)=>{
-
+  const [loginData, setLoginData] = useState({});
+  const handleChange = (e) => {
     setLoginData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
-    
-  }
+  };
   const navigate = useNavigate();
-  const login = async() => {
-
-    var response =await axios.post("http://localhost:8080/login", loginData);
+  const login = async () => {
+    var response = await axios.post("http://localhost:8080/login", loginData);
 
     var decodedData = decodeToken(response.data);
+    localStorage.removeItem("token");
     localStorage.setItem("token", response.data);
     console.log(decodedData);
 
     props.state(response.data);
     navigate("/");
-    
   };
   return (
     <div>
@@ -43,7 +39,7 @@ export default function Login(props) {
             size="small"
             sx={{ width: "242px" }}
             onChange={handleChange}
-            name="password"
+            name="username"
           />
           <br></br>
           <br></br>
@@ -54,6 +50,8 @@ export default function Login(props) {
             size="small"
             autoComplete="current-password"
             sx={{ width: "242px" }}
+            onChange={handleChange}
+            name="password"
           />
           <br></br>
           <p>Forgot password</p>

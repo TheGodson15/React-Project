@@ -8,6 +8,9 @@ export default function Edit(props) {
 const removeDp = () =>{
   axios.post("http://localhost:8080/removedp").then((res) => {
     console.log(res);
+    localStorage.removeItem("token",res.data.token);
+    localStorage.getItem("token",res.data.token);
+    window.location.reload();
   });
 }
   return (

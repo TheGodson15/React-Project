@@ -3,12 +3,7 @@ import "./header.css";
 import bell from "../../../assets/images/new.svg";
 import { isExpired, decodeToken } from "react-jwt";
 export default function Header() {
-  var [decodedData, setFullData] = useState();
-  useEffect(() => {
-    var token = localStorage.getItem("token");
-    setFullData(decodeToken(token));
-    console.log(decodedData);
-  }, [])
+
   return (
     <div>
       <header>
@@ -19,10 +14,10 @@ export default function Header() {
         ></input>
         <div className="user-details">
           <img className="notification" src={bell}></img>
-          <p className="user-name">{decodedData?.FullName}</p>
+          <p className="user-name">{}</p>
           
           <div className="dp">
-            <img src={decodedData?.avatar} 
+            <img src={""} 
             style={{height:"45px", width:"45px"}}></img>
           </div>
         </div>

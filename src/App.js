@@ -9,12 +9,15 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import Login from "./Components/Login/Login";
 import Productslist from "./Components/Products List/Productslist";
 import React, { useEffect, useState } from "react";
+import { decodeToken } from "react-jwt";
 
 function App() {
-
   const [token, setToken] = useState();
+  const [data, setData]=useState();
   useEffect(() => {
     setToken(localStorage.getItem("token"));
+    console.log(decodeToken(localStorage.getItem("token")));
+    setData(decodeToken(localStorage.getItem("token")));
   }, []);
 
 
