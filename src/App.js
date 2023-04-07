@@ -10,8 +10,11 @@ import Login from "./Components/Login/Login";
 import Productslist from "./Components/Products List/Productslist";
 import React, { useEffect, useState } from "react";
 import { decodeToken } from "react-jwt";
+import { searchContext } from "./Context/searchContext";
 
 function App() {
+  const {search, updateSearch} = useState();
+  // const {searchVariable, updateSearch} = useState();
   const [token, setToken] = useState();
   const [data, setData]=useState();
   useEffect(() => {
@@ -22,6 +25,7 @@ function App() {
 
 
   return (
+    <searchContext.Provider value={{searchVariable:search, updateSearchVariable:updateSearch}}>
     <BrowserRouter>
       {token == null && <Login state={setToken} />}
       {token != null && (
@@ -46,6 +50,8 @@ function App() {
           </div>
         </div>)}
     </BrowserRouter>
+    </searchContext.Provider>
+    
   );
 }
 

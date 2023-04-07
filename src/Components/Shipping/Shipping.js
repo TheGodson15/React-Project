@@ -1,10 +1,16 @@
 import React from "react";
-import Box from "@mui/material/Box";
 import { InputLabel } from "@mui/material";
-export default function Shipping() {
-  return <div>
-
-<Box
+import Box from "@mui/material/Box";
+export default function Shipping(props) {
+  const handleChange = (e) => {
+    props.state.setProductData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  return (
+    <div>
+      <Box
         sx={{
           width: "100%",
           height: "100%",
@@ -14,7 +20,6 @@ export default function Shipping() {
           padding: "10px",
         }}
       >
-
         <h3>Shipping</h3>
         <InputLabel>
           <span style={{ color: "red" }}>*</span>Width:
@@ -25,7 +30,7 @@ export default function Shipping() {
           placeholder="Width"
         ></input>
         <InputLabel>
-          <span style={{ color: "red" }}>*</span>Height:
+          <span style={{ color: "red" }}>*</span>Height
         </InputLabel>
         <input
           type="number"
@@ -33,7 +38,7 @@ export default function Shipping() {
           placeholder="Height"
         ></input>
         <InputLabel>
-          <span style={{ color: "red" }}>*</span>Weight:
+          <span style={{ color: "red" }}>*</span>Weight
         </InputLabel>
         <input
           type="number"
@@ -41,15 +46,16 @@ export default function Shipping() {
           placeholder="Weight"
         ></input>
         <InputLabel>
-          <span style={{ color: "red" }}>*</span>Shipping Fees:
+          <span style={{ color: "red" }}>*</span>Shipping Fees
         </InputLabel>
         <input
           type="number"
           className="product-input"
           placeholder=" $"
+          onChange={handleChange}
+          name="Shipping"
         ></input>
       </Box>
-
-
-  </div>;
+    </div>
+  );
 }
